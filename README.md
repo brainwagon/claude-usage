@@ -3,11 +3,9 @@
 A tiny macOS menu bar widget that shows how much of your Claude Code plan
 limits you've used and when they reset.
 
-The menu bar shows Clawd followed by your usage, for example:
+The menu bar shows Clawd followed by your usage:
 
-```
-[Clawd] S 5% · W 77%
-```
+![The widget in the menu bar: Clawd, then "S 5% · W 77%"](screenshot.png)
 
 - **S** is your 5-hour session limit.
 - **W** is your weekly limit.
