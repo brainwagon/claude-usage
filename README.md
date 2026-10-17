@@ -43,12 +43,13 @@ to stop it.
 
 ### Starting at login
 
-A LaunchAgent at `~/Library/LaunchAgents/com.claude-usage-tray.plist` starts the
-widget when you log in. Errors are written to
-`~/Library/Logs/claude-usage-tray.log`. To set it up on another Mac, save this
-file there, changing the script path if you keep it somewhere else:
+To have the widget start when you log in, install a LaunchAgent. Run this from
+the project folder (launchd doesn't expand `~` or `$HOME`, so the command fills
+in your full paths):
 
-```xml
+```sh
+PYTHON=$(command -v python3)   # must be the Python you installed rumps into
+cat > ~/Library/LaunchAgents/com.claude-usage-tray.plist <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -57,22 +58,21 @@ file there, changing the script path if you keep it somewhere else:
     <string>com.claude-usage-tray</string>
     <key>ProgramArguments</key>
     <array>
-        <string>/usr/bin/python3</string>
-        <string>/Users/markv/claude-usage/claude_usage_tray.py</string>
+        <string>$PYTHON</string>
+        <string>$PWD/claude_usage_tray.py</string>
     </array>
     <key>RunAtLoad</key>
     <true/>
     <key>StandardErrorPath</key>
-    <string>/Users/markv/Library/Logs/claude-usage-tray.log</string>
+    <string>$HOME/Library/Logs/claude-usage-tray.log</string>
 </dict>
 </plist>
-```
-
-Then load it with:
-
-```sh
+EOF
 launchctl load ~/Library/LaunchAgents/com.claude-usage-tray.plist
 ```
+
+This starts the widget right away and at every login. Errors are written to
+`~/Library/Logs/claude-usage-tray.log`.
 
 Choosing **Quit** stops the widget until your next login. To start it again
 right away, run `launchctl start com.claude-usage-tray`. To stop it starting at
