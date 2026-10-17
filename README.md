@@ -1,7 +1,9 @@
 # Claude Usage Tray
 
-A tiny macOS menu bar widget that shows how much of your Claude Code plan
-limits you've used and when they reset.
+A tiny macOS menu bar widget that shows how much of your Claude Code session
+and weekly limits you've used and when they reset, with a little pixel-art
+Clawd next to the numbers. It's a single Python file, with no tools to install
+beyond `rumps`.
 
 The menu bar shows Clawd followed by your usage:
 
